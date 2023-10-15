@@ -75,7 +75,7 @@ export default function Home() {
                               <CardImageContainer>
                                 <MuiBox>
                                   <PictureSpan>
-                                    <img className='inset-0 absolute box-border p-[100%] min-w-full max-w-full min-h-full max-h-fulEventosl object-cover ' alt="Overwatch 2" src='https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/bltc5e8f5bdb29916db/64cd4c11c45759478fa1f861/S6_Overview_Thumbnail.jpg' decoding='async' data-nimg="fill" sizes='100vw' srcSet='https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/bltc5e8f5bdb29916db/64cd4c11c45759478fa1f861/S6_Overview_Thumbnail.jpg'></img>
+                                    <img className='inset-0 absolute box-border p-[100%] min-w-full max-w-full min-h-full max-h-full object-cover ' alt="Overwatch 2" src='https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/bltc5e8f5bdb29916db/64cd4c11c45759478fa1f861/S6_Overview_Thumbnail.jpg' decoding='async' data-nimg="fill" sizes='100vw' srcSet='https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/bltc5e8f5bdb29916db/64cd4c11c45759478fa1f861/S6_Overview_Thumbnail.jpg'></img>
                                   </PictureSpan>
                                 </MuiBox>
                                 <LeftContainer></LeftContainer>

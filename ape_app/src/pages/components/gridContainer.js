@@ -2,7 +2,7 @@ import React from "react";
 
 const GridContainer = ({children}) => {
     return(
-        <div className="gridRoot flex box-border flex-nowrap w-full flex-row items-center">
+        <div className="gridContainer flex box-border flex-nowrap w-full flex-row items-center justify-between">
             {children}
         </div>
     )
