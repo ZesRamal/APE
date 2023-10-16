@@ -3,7 +3,7 @@ import React from 'react';
 const SectionTitles = ({children}) => {
     return(
         <div className='flex justify-between items-center flex-wrap'>
-            <h2 className='my-3 text-[18px] leading-5 text-black font-extrabold md:text-[24px] md:leading-7 '>{children}</h2>
+            <h2 className='pl-2 my-4 text-[24px] leading-5 text-black font-medium '>{children}</h2>
         </div>
     );
 }; 

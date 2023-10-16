@@ -2,7 +2,7 @@ import React from "react";
 
 const GliderTrack = ({children}) => {
     return(
-        <div className='m-0 p-0 flex w-[2010px] translate-z-0'>
+        <div className='gliderTrack flex m-0 p-0 w-fit'>
             {children}
         </div>
     )
