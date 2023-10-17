@@ -1,11 +1,11 @@
 import React from 'react'
 
-const topLevelNav = ({children}) => {
+const TopLevelNav = ({children}) => {
     return (
-        <div className='topLevelNav flex w-full items-center bg-blue-900 text-white h-[5.6rem] overflow-hidden relative'>
+        <div className='topLevelNav flex w-full items-center bg-blue-900 text-white h-[4rem] overflow-hidden relative'>
             {children}
         </div>
     );
 }
 
-export default topLevelNav;
+export default TopLevelNav;

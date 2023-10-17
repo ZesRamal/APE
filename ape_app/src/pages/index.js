@@ -25,6 +25,18 @@ import BottomRightContainer from './components/bottomRightContainer'
 import TopLeftContainer from './components/topLeftContainer'
 import TopRightContainer from './components/topRightContainer'
 import DateEvents from './components/dateEvents'
+import AppBarSpacer from './components/appBarSpacer'
+import CollapseWrapper from './components/collapseWrapper'
+import CollapseRoot from './components/collapseRoot'
+import CollapseWrapperInner from './components/collapseWrapperInner'
+import MuiPaper from './components/muiPaper'
+import AppMobileNav from './components/appMobileNav'
+import TopLevelNav from './components/topLevelNav'
+import ContainerNavPrimary from './components/containerNavPrimary'
+import GridContainer from './components/gridContainer'
+import GridItemsLeft from './components/gridItemsLeft'
+import GridItemsRight from './components/gridItemsRight'
+import NavOutDesign from './components/navOutDesign'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,11 +49,37 @@ export default function Home() {
 
       </Head>
       <div>
-        {/* Creacion de la barra de navegacion escondida */}
-        <div className='hiddenCSS'>
-          <div className='appBarSpacer'></div>
+        {/* Creacion de la barra de navegacion */}
+        <div className=''>
+          {/* <CollapseRoot>
+            <CollapseWrapper>
+              <CollapseWrapperInner>
+                <MuiPaper>
+                  
+                </MuiPaper>
+              </CollapseWrapperInner>
+            </CollapseWrapper>
+          </CollapseRoot> */}
         </div>
         {/* Creacion del header */}
+        <header className='appHeader'>
+          <AppMobileNav>
+            <TopLevelNav>
+              <NavOutDesign>
+              </NavOutDesign>
+              <ContainerNavPrimary>
+                <GridContainer>
+                  <GridItemsLeft>
+
+                  </GridItemsLeft>
+                  <GridItemsRight>
+
+                  </GridItemsRight>
+                </GridContainer>
+              </ContainerNavPrimary>
+            </TopLevelNav>
+          </AppMobileNav>
+        </header>
         <HomePageBanner>
           <Logo>EvenTec</Logo>
           <div className='blueBar w-[70px] h-[4px] bg-blue-700 m-1'>
