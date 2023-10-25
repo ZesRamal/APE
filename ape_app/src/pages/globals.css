@@ -26,3 +26,29 @@ body {
   line-height: 1.42;
   letter-spacing: 0.0107em;
 }
+
+.button-blue {
+  display: inline-flex;
+  color: white;
+  font-size: 1.6rem;
+  justify-content: center;
+  align-items: middle;
+  position: relative;
+  box-sizing: border-box;
+  outline: 0;
+  border-spacing: 0;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: medium;
+  min-width: 5px;
+  line-height: 20px;
+  border-radius: 0.375rem;
+  margin: 25px 0px;
+  transition: background-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, border-color 0.25s ease-in-out, color 0.25s ease-in-out;
+  padding: 16px 8px;
+  background-color: #1e40af;
+  box-shadow: 0 4px 6px -1px rgba(31,41,55,0.1), 0 2px 4px -1px rgba(31,41,55,0.06);
+  border: #1e40af;
+}

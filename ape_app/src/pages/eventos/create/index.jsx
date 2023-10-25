@@ -29,9 +29,30 @@ const createEvents = () => {
     const handleCancel = () => {
         router.back()
     }
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        setEventData({
+            name:'',
+            category:'Esports',
+            startDate:'',
+            endDate:'',
+            startTime:'',
+            location:'',
+            details:'',
+            organizer:'',
 
+        })
+
+    }
+
+    const getCategoryImage = (category) => {
+        const categoryImages = {
+            esports: 'esports.png',
+            sports: 'sports.jpg',
+            academics:'academics.jpg',
+        } 
+        return `../../images/${categoryImages[category]}`
     }
 
     return (
@@ -39,6 +60,10 @@ const createEvents = () => {
             <NavBar/>
             <div className='flex flex-row'>
                 <form onSubmit={handleSubmit}>
+                    <img src={getCategoryImage(eventData.category)}
+                         alt='Category Image'
+                         className='category-image
+                    '/>
                     <label>
                         Nombre del Evento:
                         <input
@@ -51,7 +76,7 @@ const createEvents = () => {
                     <label>
                         Categoria:
                         <select name='category' value={eventData.category} onChange={handleChange}>
-                            <option value="games">Esports</option>
+                            <option value="esports">Esports</option>
                             <option value="sports">Deportes</option>
                             <option value="academics">Asuntos Academicos</option>
                         </select>
