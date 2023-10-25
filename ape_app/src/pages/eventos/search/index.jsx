@@ -5,6 +5,12 @@ const searchEvents = () => {
     return(
         <div className="box-border *:before:*:after">
             <NavBar/>
+            <div className='searchBarContainer'>
+                
+            </div>
+            <div className='eventPerCategoryContainer'>
+                
+            </div>
         </div>
     )
 }

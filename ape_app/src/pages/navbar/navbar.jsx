@@ -44,7 +44,8 @@ const NavBar = () => {
             <div className='toogle-button' onClick={toggleNavbar}>
               <i className='fas fa-bars'></i>
             </div>
-            <img src='../images/logo-ensenada.png' alt='logo' className='logo'></img>
+            <a href='/'>Inicio</a>
+            {/* <img src='../images/logo-ensenada.png' alt='logo' className='logo'></img> */}
           </div>
           <div className='right-section'>
             <div className='profile-avatar' onClick={handleLoginWithGoogle}>
