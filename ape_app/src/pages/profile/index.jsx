@@ -4,7 +4,9 @@ import NavBar from "../navbar/navbar";
 
 const viewProfile = () => {
     return(
-        <div>viewProfile</div>
+        <div className="box-border">
+            <NavBar/>
+        </div>
     )
 }
 

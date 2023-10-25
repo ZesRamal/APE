@@ -52,3 +52,48 @@ body {
   box-shadow: 0 4px 6px -1px rgba(31,41,55,0.1), 0 2px 4px -1px rgba(31,41,55,0.06);
   border: #1e40af;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e40af;
+  color: white;
+  padding: 10px 20px;
+}
+
+.left-section{
+  display: flex;
+  align-items: center;
+
+}
+
+.toggle-button{
+  display: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  margin-left: 20px;
+}
+
+.right-section{
+  display: flex;
+  align-items: center;
+}
+
+.expanded{
+  backdrop-filter: blur(5px);
+
+}
+
+.expanded .left-section{
+  flex-direction: column;
+}
+
+.logo{
+  width: auto;
+  height: auto;
+}

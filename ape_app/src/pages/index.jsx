@@ -41,11 +41,6 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return (
     <div className="box-border *:before:*:after">
-      <Head>
-        <title>EvenTec</title>
-        <link rel="icon" href='/favicon.ico'/>
-
-      </Head>
       <div>
         <NavBar/>
         <HomePageBanner>
