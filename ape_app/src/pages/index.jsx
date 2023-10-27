@@ -26,13 +26,14 @@ import NavBar from './navbar/navbar'
 import SearchEventButton from './components/searchEventButton'
 import CreateEventButton from './components/createEventButton'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
     <div className="box-border *:before:*:after">
       <div>
-        <NavBar/>
+        <NavBar />
         <HomePageBanner>
           <Logo>EvenTec</Logo>
           <div className='blueBar w-[70px] h-[4px] bg-blue-700 m-1'>
