@@ -30,6 +30,18 @@ import CreateEventButton from './components/createEventButton'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  // useEffect para cargar todos los eventos
+  // useEffect(() => {
+  //   ; (async () => {
+  //     const colRef = collection(db, 'eventos')
+  //     const snapshots = await getDocs(colRef)
+  //     const docs = snapshots.docs.map(doc => {
+  //       const data = doc.data()
+  //       data.id = doc.id
+  //       return data
+  //     })
+  //   })()
+  // }, [])
   return (
     <div className="box-border *:before:*:after">
       <div>
