@@ -5,8 +5,10 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } f
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from 'next/router';
 import { changeUserInfo } from '../profile/edit';
+import { getEvents } from '../api/events';
 
 initFirebase()
+const events = await getEvents();
 
 const NavBar = () => {
   const auth = getAuth();
@@ -70,7 +72,7 @@ const NavBar = () => {
               <div>
                 {user.displayName}
               </div>
-              <button className=' bg-red-600 rounded-lg' onClick={() => { auth.signOut(); }}>LogOut</button>
+              <button className=' bg-red-600 rounded-lg' onClick={() => { auth.signOut(); router.push("/") }}>LogOut</button>
             </div>
           )}
         </div>

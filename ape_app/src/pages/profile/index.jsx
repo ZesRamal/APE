@@ -22,7 +22,7 @@ const viewProfile = () => {
         if (!user && !loading) {
             router.push("/")
         }
-    }, []);
+    }, [loading]);
 
     return (
         <div className="box-border">

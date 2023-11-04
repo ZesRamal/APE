@@ -1,10 +1,10 @@
-import NavBar from '../../navbar/navbar';
+import NavBar from '@/src/pages/navbar/navbar';
 import React from 'react'
 
 const resultEvents = () => {
-    return(
+    return (
         <div className="box-border *:before:*:after">
-            <NavBar/>
+            <NavBar />
         </div>
     )
 }

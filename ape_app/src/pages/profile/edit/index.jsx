@@ -4,7 +4,7 @@ import SectionTitles from "../../components/sectionTitles";
 import NavBar from "../../navbar/navbar";
 import React, { useEffect, useState } from "react";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { doc, getDoc, setDoc, collection, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, setDoc, collection, onSnapshot, arrayUnion } from "firebase/firestore";
 import { db, initFirebase } from "@/firebase/firebaseApp";
 import { useRouter } from 'next/router';
 
@@ -16,8 +16,9 @@ export async function changeUserInfo(uid, name, bio, interests, email) {
             name: name,
             bio: bio,
             interests: interests,
+            //createdEvents: arrayUnion(1111)
         }, { merge: true });
-        console.log("User Added with ID:", "aFuk12yYQrY8cYAqlZMtFRwppyH3");
+        console.log("User Added with ID:", uid);
     } catch (error) {
         console.error("Error", error);
     }
@@ -68,7 +69,7 @@ const editProfile = () => {
         if (!user && !loading) {
             router.push("/")
         }
-    }, []);
+    }, [loading]);
 
     return (
         <div className="box-border">

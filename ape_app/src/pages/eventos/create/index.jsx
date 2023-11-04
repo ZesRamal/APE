@@ -5,8 +5,49 @@ import React from 'react';
 import ButtonGroup from '../../components/buttonGroup';
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { setDoc, collection, doc } from "firebase/firestore";
+import { setDoc, collection, doc, Firestore, arrayUnion, addDoc, where, getDocs, query } from "firebase/firestore";
 import { db, initFirebase } from "@/firebase/firebaseApp";
+
+
+export async function createEvent(name, category, startDate, startTime, endDate, location, organizer, details) {
+    try {
+        const colRef = collection(db, 'eventos')
+        const doc = await addDoc(colRef, {
+            name: name,
+            category: category,
+            startDate: startDate,
+            startTime: startTime,
+            endDate: endDate,
+            location: location,
+            organizer: organizer,
+            details: details,
+        }, { merge: true });
+        console.log("Event Added with ID:", doc.id);
+    } catch (error) {
+        console.error("Error", error);
+    }
+}
+
+export async function searchEventsWithUID(uid) {
+    try {
+        const colRef = collection(db, "eventos");
+        const que = query(colRef, where("organizer", "==", uid));
+        const results = await getDocs(que);
+
+        const events = [];
+        for (const doc of results.docs) {
+            events.push({
+                id: doc.id,
+                ...doc.data(),
+            });
+        }
+        console.log(events);
+        return events;
+    } catch (error) {
+        console.error("Error", error);
+    }
+}
+
 
 
 const createEvents = () => {
@@ -36,23 +77,28 @@ const createEvents = () => {
     }
 
     const handleCancel = () => {
-        router.back()
+        createEvent("Test", "Test", "hoy", "1:00", "mañana", "gym", user.uid, "Nada");
+        //router.back()
+    }
+
+    const testConsultaEventos = () => {
+        searchEventsWithUID(user.uid);
+        //router.back()
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        setEventData({
-            name: '',
-            category: 'Esports',
-            startDate: '',
-            endDate: '',
-            startTime: '',
-            location: '',
-            details: '',
-            organizer: '',
+        // e.preventDefault();
+        // setEventData({
+        //     name: '',
+        //     category: 'Esports',
+        //     startDate: '',
+        //     endDate: '',
+        //     startTime: '',
+        //     location: '',
+        //     details: '',
+        //     organizer: '',
 
-        })
-
+        // })
     }
 
     const getCategoryImage = (category) => {
@@ -68,14 +114,14 @@ const createEvents = () => {
         if (!user && !loading) {
             router.push("/")
         }
-    }, []);
+    }, [loading]);
 
     return (
         <div>
             <NavBar />
             {user && (
                 <div className='flex flex-row'>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} >
                         <img src={getCategoryImage(eventData.category)}
                             alt='Category Image'
                             className='category-image
@@ -152,6 +198,7 @@ const createEvents = () => {
                         <ButtonGroup>
                             <button type='submit'> Create Event </button>
                             <button type='button' onClick={handleCancel}>Cancel</button>
+                            <button type='button' onClick={testConsultaEventos}>Eventos</button>
                         </ButtonGroup>
 
                     </form>
