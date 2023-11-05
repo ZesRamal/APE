@@ -7,50 +7,36 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { doc, getDoc, setDoc, collection, onSnapshot, arrayUnion } from "firebase/firestore";
 import { db, initFirebase } from "@/firebase/firebaseApp";
 import { useRouter } from 'next/router';
-
-export async function changeUserInfo(uid, name, bio, interests, email) {
-    try {
-        const docRef = doc(db, 'usuarios', uid)
-        await setDoc(docRef, {
-            email: email,
-            name: name,
-            bio: bio,
-            interests: interests,
-            //createdEvents: arrayUnion(1111)
-        }, { merge: true });
-        console.log("User Added with ID:", uid);
-    } catch (error) {
-        console.error("Error", error);
-    }
-}
+import { getUser, changeUserInfo } from "../../api/user";
 
 const editProfile = () => {
     initFirebase();
     const auth = getAuth();
     const [user, loading, error] = useAuthState(auth);
     const router = useRouter()
+    const {
+        query: { uid },
+    } = router;
 
-
+    const [userID, setUserID] = useState('');
     const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
     const [interest, setInterest] = useState('')
 
     useEffect(() => {
         ; (async () => {
-            if (user) {
-                const docSnap = await getDoc(doc(db, 'usuarios', user.uid))
-                if (docSnap.exists()) {
-                    const data = docSnap.data()
-                    data.id = docSnap.id
-                    console.log(data);
-                    setUsername(data.name)
-                    setBio(data.bio)
-                    setInterest(data.interests)
-                    return data
-                }
+            if (!uid) return false;
+            const user = await getUser(uid)
+            if (!user) {
+                router.push('/profile')
+            } else {
+                setUserID(user.id)
+                setUsername(user.name)
+                setBio(user.bio)
+                setInterest(user.interests)
             }
         })()
-    }, [user])
+    }, [uid])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -59,17 +45,21 @@ const editProfile = () => {
             setUsername("");
             setBio("");
             setInterest("");
-
             alert("User data added")
         }
-
+        router.push('../' + user.uid)
     }
 
     useEffect(() => {
         if (!user && !loading) {
             router.push("/")
         }
-    }, [loading]);
+        if (user) {
+            if (user.uid != uid) {
+                router.push("/profile")
+            }
+        }
+    }, [loading, user]);
 
     return (
         <div className="box-border">

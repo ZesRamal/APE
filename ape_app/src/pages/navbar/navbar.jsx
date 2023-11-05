@@ -4,7 +4,7 @@ import { initFirebase } from '@/firebase/firebaseApp'
 import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from 'next/router';
-import { changeUserInfo } from '../profile/edit';
+import { changeUserInfo } from '../profile/edit/[uid]';
 import { getEvents } from '../api/events';
 
 initFirebase()
@@ -21,10 +21,10 @@ const NavBar = () => {
     // Inicia sesión con Google
     const signed = await signInWithPopup(auth, provider);
     // Verifica que el dominio del correo electrónico sea "@ite.edu.mx"
-    if (!/@ite.edu.mx\s*$/.test(signed.user.email)) {
-      // Elimina al usuario
-      signed.user.delete();
-    }
+    // if (!/@ite.edu.mx\s*$/.test(signed.user.email)) {
+    //   // Elimina al usuario
+    //   signed.user.delete();
+    // }
     if (signed.user.metadata.creationTime == signed.user.metadata.lastSignInTime) {
       changeUserInfo(signed.user.uid, signed.user.displayName, null, null, signed.user.email);
     }
@@ -42,7 +42,7 @@ const NavBar = () => {
 
 
   function goToProfile() {
-    router.push("/profile");
+    router.push("/profile/" + user.uid);
   }
 
   const toggleNavbar = () => {

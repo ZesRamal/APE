@@ -8,13 +8,61 @@ import BottomLeftContainer from '../../components/bottomLeftContainer';
 import BottomRightContainer from '../../components/bottomRightContainer';
 import MainSection from '../../components/mainSection';
 import SectionTitles from '../../components/sectionTitles';
-
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { initFirebase } from '@/firebase/firebaseApp'
+import { useRouter } from 'next/router';
+import { getDoc, collection, doc } from "firebase/firestore";
+import { db } from "@/firebase/firebaseApp";
+import { getEvent } from '../../api/events';
 
 const infoEvents = () => {
-    return(
+    const auth = getAuth();
+    const [user, loading, error] = useAuthState(auth);
+    const [eventName, setEventName] = useState('');
+    const [details, setDetails] = useState('');
+    const [category, setCategory] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [organizer, setOrganizer] = useState('');
+    const [location, setLocation] = useState('');
+    const [allowEdit, setAllowEdit] = useState(false);
+    const router = useRouter()
+    const {
+        query: { eid },
+    } = router;
+
+    useEffect(() => {
+        ; (async () => {
+            if (!eid) return false;
+            const event = await getEvent(eid);
+            if (!event) {
+                router.push('/eventos')
+            } else {
+                setEventName(event.name)
+                setDetails(event.details)
+                setCategory(event.category)
+                setStartDate(event.startDate)
+                setEndDate(event.endDate)
+                setOrganizer(event.organizer)
+                setLocation(event.location)
+            }
+        })()
+    }, [eid, user])
+
+    function goToEdit() {
+        router.replace("/eventos/edit/" + eid);
+    }
+
+    return (
         <div className="box-border *:before:*:after">
-            <NavBar/>
+            <NavBar />
+            {user && user.uid == organizer && (
+                <div>
+                    <div onClick={goToEdit}>Edit</div>
+                </div>
+            )}
             <div>
                 <CardImageContainer>
                     <MuiBox>
@@ -23,15 +71,15 @@ const infoEvents = () => {
                             </img>
                         </PictureSpan>
                     </MuiBox>
-                    <TopLeftContainer/>
-                    <TopRightContainer/>
-                    <BottomLeftContainer/>
-                    <BottomRightContainer/>
+                    <TopLeftContainer />
+                    <TopRightContainer />
+                    <BottomLeftContainer />
+                    <BottomRightContainer />
                 </CardImageContainer>
             </div>
             <MainSection>
                 <SectionTitles>
-                    Torneo Overwatch 2
+                    {eventName}
                 </SectionTitles>
             </MainSection>
         </div>

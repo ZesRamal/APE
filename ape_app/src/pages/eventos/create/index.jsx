@@ -7,48 +7,7 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { setDoc, collection, doc, Firestore, arrayUnion, addDoc, where, getDocs, query } from "firebase/firestore";
 import { db, initFirebase } from "@/firebase/firebaseApp";
-
-
-export async function createEvent(name, category, startDate, startTime, endDate, location, organizer, details) {
-    try {
-        const colRef = collection(db, 'eventos')
-        const doc = await addDoc(colRef, {
-            name: name,
-            category: category,
-            startDate: startDate,
-            startTime: startTime,
-            endDate: endDate,
-            location: location,
-            organizer: organizer,
-            details: details,
-        }, { merge: true });
-        console.log("Event Added with ID:", doc.id);
-    } catch (error) {
-        console.error("Error", error);
-    }
-}
-
-export async function searchEventsWithUID(uid) {
-    try {
-        const colRef = collection(db, "eventos");
-        const que = query(colRef, where("organizer", "==", uid));
-        const results = await getDocs(que);
-
-        const events = [];
-        for (const doc of results.docs) {
-            events.push({
-                id: doc.id,
-                ...doc.data(),
-            });
-        }
-        console.log(events);
-        return events;
-    } catch (error) {
-        console.error("Error", error);
-    }
-}
-
-
+import { getEvents, createEvent, searchEventsWithUID } from '../../api/events';
 
 const createEvents = () => {
     const auth = getAuth();
@@ -69,36 +28,35 @@ const createEvents = () => {
 
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { id, value } = e.target;
         setEventData({
             ...eventData,
-            [name]: value,
+            [id]: value,
         })
     }
 
     const handleCancel = () => {
-        createEvent("Test", "Test", "hoy", "1:00", "mañana", "gym", user.uid, "Nada");
-        //router.back()
+        router.back()
     }
 
     const testConsultaEventos = () => {
         searchEventsWithUID(user.uid);
-        //router.back()
     }
 
-    const handleSubmit = (e) => {
-        // e.preventDefault();
-        // setEventData({
-        //     name: '',
-        //     category: 'Esports',
-        //     startDate: '',
-        //     endDate: '',
-        //     startTime: '',
-        //     location: '',
-        //     details: '',
-        //     organizer: '',
-
-        // })
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newEvent = await createEvent(eventData.name, eventData.category, eventData.startDate, eventData.startTime, eventData.endDate, eventData.location, user.uid, eventData.details);
+        setEventData({
+            name: '',
+            category: 'Esports',
+            startDate: '',
+            endDate: '',
+            startTime: '',
+            location: '',
+            details: '',
+            organizer: '',
+        })
+        router.push('../eventos/info/' + newEvent.id)
     }
 
     const getCategoryImage = (category) => {
@@ -130,14 +88,14 @@ const createEvents = () => {
                             Nombre del Evento:
                             <input
                                 type='text'
-                                name='name'
+                                id='name'
                                 value={eventData.name}
                                 onChange={handleChange}
                             />
                         </label>
                         <label>
                             Categoria:
-                            <select name='category' value={eventData.category} onChange={handleChange}>
+                            <select id='category' value={eventData.category} onChange={handleChange}>
                                 <option value="esports">Esports</option>
                                 <option value="sports">Deportes</option>
                                 <option value="academics">Asuntos Academicos</option>
@@ -147,7 +105,7 @@ const createEvents = () => {
                             Fecha de Inicio:
                             <input
                                 type='date'
-                                name='startDate'
+                                id='startDate'
                                 value={eventData.startDate}
                                 onChange={handleChange}
                             />
@@ -156,7 +114,7 @@ const createEvents = () => {
                             Fecha de termino:
                             <input
                                 type='date'
-                                name='endDate'
+                                id='endDate'
                                 value={eventData.endDate}
                                 onChange={handleChange}
                             />
@@ -164,7 +122,7 @@ const createEvents = () => {
                         <label>
                             <input
                                 type='time'
-                                name='startTime'
+                                id='startTime'
                                 value={eventData.startTime}
                                 onChange={handleChange}
                             />
@@ -173,7 +131,7 @@ const createEvents = () => {
                             Ubicacion:
                             <input
                                 type='text'
-                                name='location'
+                                id='location'
                                 value={eventData.location}
                                 onChange={handleChange}
                             />
@@ -182,7 +140,7 @@ const createEvents = () => {
                             Organizadores:
                             <input
                                 type='text'
-                                name='organizer'
+                                id='organizer'
                                 value={eventData.organizer}
                                 onChange={handleChange}
                             />
@@ -190,13 +148,13 @@ const createEvents = () => {
                         <label>
                             Detalles:
                             <textarea
-                                name='details'
+                                id='details'
                                 value={eventData.details}
                                 onChange={handleChange}
                             />
                         </label>
                         <ButtonGroup>
-                            <button type='submit'> Create Event </button>
+                            <button type='submit' onClick={handleSubmit}> Create Event </button>
                             <button type='button' onClick={handleCancel}>Cancel</button>
                             <button type='button' onClick={testConsultaEventos}>Eventos</button>
                         </ButtonGroup>
