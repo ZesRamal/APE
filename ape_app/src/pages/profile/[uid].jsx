@@ -9,6 +9,7 @@ import { getDoc, collection, doc } from "firebase/firestore";
 import { db } from "@/firebase/firebaseApp";
 import SectionTitles from "@/src/pages/components/sectionTitles";
 import { getUser } from "../api/user";
+import { searchEventsWithUID } from "../api/events";
 
 
 const viewProfile = () => {
@@ -17,6 +18,7 @@ const viewProfile = () => {
     const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
     const [interest, setInterest] = useState('')
+    const [createdEvents, setCreatedEvents] = useState()
     const router = useRouter()
     const {
         query: { uid },
@@ -29,9 +31,11 @@ const viewProfile = () => {
             if (!user) {
                 router.push('/profile')
             } else {
+                const eventos = await searchEventsWithUID(uid)
                 setUsername(user.name)
                 setBio(user.bio)
                 setInterest(user.interests)
+                setCreatedEvents(eventos)
             }
         })()
     }, [uid])
@@ -64,6 +68,15 @@ const viewProfile = () => {
                 <SectionTitles className="input-bordered border-2 solid p-3 w-full text-[16px] sm:text-[24px]">{bio}</SectionTitles>
                 <SectionTitles>Intereses: </SectionTitles>
                 <SectionTitles className="input-bordered border-2 solid p-3 w-full text-[16px] sm:text-[24px]">{interest}</SectionTitles>
+                <SectionTitles>Eventos Creados: </SectionTitles>
+                {createdEvents?.map((event) => (
+                    <SectionTitles
+                        key={event.id}
+                        children={event.name}
+                    />
+                ))}
+                <SectionTitles>Eventos Inscritos: </SectionTitles>
+                <SectionTitles className="input-bordered border-2 solid p-3 w-full text-[16px] sm:text-[24px]"></SectionTitles>
             </div>
         </div>
     )

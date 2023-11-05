@@ -27,11 +27,16 @@ import NavBar from './navbar/navbar'
 import SearchEventButton from './components/searchEventButton'
 import CreateEventButton from './components/createEventButton'
 import EventBox from './components/eventBox'
-import { getEvents } from './api/events'
+import { getEvents, searchEventsWithCategory } from './api/events'
+import { initFirebase } from "@/firebase/firebaseApp";
 
 
 const inter = Inter({ subsets: ['latin'] })
 const events = await getEvents();
+const platicas = await searchEventsWithCategory("academics")
+const deportes = await searchEventsWithCategory("sports")
+const eSports = await searchEventsWithCategory("Esports")
+initFirebase();
 
 export default function Home() {
   // useEffect para cargar todos los eventos
@@ -73,7 +78,7 @@ export default function Home() {
                 <TournamentScroller>
                   <div role='group' aria-labelledby='18'>
                     <SectionTitles>
-                      Eventos Recomendados
+                      Eventos Recientes
                     </SectionTitles>
                     <GliderControls>
                       <GliderContain>
@@ -104,88 +109,65 @@ export default function Home() {
                       <GliderContain>
                         <GliderDragable>
                           <GliderTrack>
-                            {/* Boxes de eventos */}
-                            <StyleContainer data-gslide="3">
-                              <StyleCard>
-                                <StyleLink>
-                                  <CardImageContainer>
-                                    <MuiBox>
-                                      <PictureSpan>
-                                        <img alt="Overwatch Collegiate Homecoming 2023 - Overwatch 2" className='absolute inset-0 box-border p-0 border border-medium m-auto block w-0 h-0 min-w-full max-w-full min-h-full max-h-full object-cover' sizes='100vw' src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0" decoding="async" data-nimg="fill" srcSet="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 640w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 750w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 828w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 1080w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 1200w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 1920w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 2048w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 3840w">
-                                        </img>
-                                      </PictureSpan>
-                                    </MuiBox>
-                                    <BottomLeftContainer></BottomLeftContainer>
-                                    <BottomRightContainer></BottomRightContainer>
-                                    <TopLeftContainer></TopLeftContainer>
-                                    <TopRightContainer></TopRightContainer>
-                                  </CardImageContainer>
-                                  <ContentRegion>
-                                    <TournamentTitle>
-                                      Overwatch Tournament
-                                    </TournamentTitle>
-                                    <DateEvents>
-                                      21 september 2023
-                                    </DateEvents>
-                                  </ContentRegion>
-                                </StyleLink>
-                              </StyleCard>
-                            </StyleContainer>
-                            {/* 2 */}
-                            <StyleContainer data-gslide="4">
-                              <StyleCard>
-                                <StyleLink>
-                                  <CardImageContainer>
-                                    <MuiBox>
-                                      <PictureSpan>
-                                        <img alt="Overwatch Collegiate Homecoming 2023 - Overwatch 2" className='absolute inset-0 box-border p-0 border border-medium m-auto block w-0 h-0 min-w-full max-w-full min-h-full max-h-full object-cover' sizes='100vw' src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0" decoding="async" data-nimg="fill" srcSet="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 640w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 750w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 828w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 1080w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 1200w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 1920w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 2048w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 3840w">
-                                        </img>
-                                      </PictureSpan>
-                                    </MuiBox>
-                                    <BottomLeftContainer></BottomLeftContainer>
-                                    <BottomRightContainer></BottomRightContainer>
-                                    <TopLeftContainer></TopLeftContainer>
-                                    <TopRightContainer></TopRightContainer>
-                                  </CardImageContainer>
-                                  <ContentRegion>
-                                    <TournamentTitle>
-                                      Overwatch Tournament
-                                    </TournamentTitle>
-                                    <DateEvents>
-                                      21 september 2023
-                                    </DateEvents>
-                                  </ContentRegion>
-                                </StyleLink>
-                              </StyleCard>
-                            </StyleContainer>
-                            {/* 3 */}
-                            {/* 2 */}
-                            <StyleContainer data-gslide="5">
-                              <StyleCard>
-                                <StyleLink>
-                                  <CardImageContainer>
-                                    <MuiBox>
-                                      <PictureSpan>
-                                        <img alt="Overwatch Collegiate Homecoming 2023 - Overwatch 2" className='absolute inset-0 box-border p-0 border border-medium m-auto block w-0 h-0 min-w-full max-w-full min-h-full max-h-full object-cover' sizes='100vw' src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0" decoding="async" data-nimg="fill" srcSet="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 640w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 750w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 828w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 1080w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 1200w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 1920w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 2048w, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&amp;ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&amp;w=340&amp;r=0 3840w">
-                                        </img>
-                                      </PictureSpan>
-                                    </MuiBox>
-                                    <BottomLeftContainer></BottomLeftContainer>
-                                    <BottomRightContainer></BottomRightContainer>
-                                    <TopLeftContainer></TopLeftContainer>
-                                    <TopRightContainer></TopRightContainer>
-                                  </CardImageContainer>
-                                  <ContentRegion>
-                                    <TournamentTitle>
-                                      Overwatch Tournament
-                                    </TournamentTitle>
-                                    <DateEvents>
-                                      21 september 2023
-                                    </DateEvents>
-                                  </ContentRegion>
-                                </StyleLink>
-                              </StyleCard>
-                            </StyleContainer>
+                            {platicas?.map((event) => (
+                              <EventBox
+                                key={event.id}
+                                id={event.id}
+                                name={event.name}
+                                date={event.id}
+                                photo={"https://www.bing.com/th?pid=Sgg&qlt=100&u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&w=340&r=0"}
+                              />
+                            ))}
+                          </GliderTrack>
+                        </GliderDragable>
+                      </GliderContain>
+                    </GliderControls>
+                  </div>
+                </TournamentScroller>
+                {/* Tercera seccion del Listing */}
+                <TournamentScroller>
+                  <div role='group' aria-labelledby='18'>
+                    <SectionTitles>
+                      Deportes
+                    </SectionTitles>
+                    <GliderControls>
+                      <GliderContain>
+                        <GliderDragable>
+                          <GliderTrack>
+                            {deportes?.map((event) => (
+                              <EventBox
+                                key={event.id}
+                                id={event.id}
+                                name={event.name}
+                                date={event.id}
+                                photo={"https://www.bing.com/th?pid=Sgg&qlt=100&u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&w=340&r=0"}
+                              />
+                            ))}
+                          </GliderTrack>
+                        </GliderDragable>
+                      </GliderContain>
+                    </GliderControls>
+                  </div>
+                </TournamentScroller>
+                {/* Cuarta seccion del Listing */}
+                <TournamentScroller>
+                  <div role='group' aria-labelledby='18'>
+                    <SectionTitles>
+                      ESports
+                    </SectionTitles>
+                    <GliderControls>
+                      <GliderContain>
+                        <GliderDragable>
+                          <GliderTrack>
+                            {eSports?.map((event) => (
+                              <EventBox
+                                key={event.id}
+                                id={event.id}
+                                name={event.name}
+                                date={event.id}
+                                photo={"https://www.bing.com/th?pid=Sgg&qlt=100&u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&w=340&r=0"}
+                              />
+                            ))}
                           </GliderTrack>
                         </GliderDragable>
                       </GliderContain>

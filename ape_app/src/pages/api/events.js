@@ -35,7 +35,7 @@ export async function createEvent(name, category, startDate, startTime, endDate,
             organizer: organizer,
             details: details,
         }, { merge: true });
-        console.log("Event Added with ID:", doc.id);
+        //console.log("Event Added with ID:", doc.id);
         return doc;
     } catch (error) {
         console.error("Error", error);
@@ -55,7 +55,27 @@ export async function searchEventsWithUID(uid) {
                 ...doc.data(),
             });
         }
-        console.log(events);
+        //console.log(events);
+        return events;
+    } catch (error) {
+        console.error("Error", error);
+    }
+}
+
+export async function searchEventsWithCategory(category) {
+    try {
+        const colRef = collection(db, "eventos");
+        const que = query(colRef, where("category", "==", category));
+        const results = await getDocs(que);
+
+        const events = [];
+        for (const doc of results.docs) {
+            events.push({
+                id: doc.id,
+                ...doc.data(),
+            });
+        }
+        //console.log(events);
         return events;
     } catch (error) {
         console.error("Error", error);

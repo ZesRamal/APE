@@ -13,7 +13,7 @@ export async function getUsers() {
                 ...doc.data(),
             });
         }
-        console.log(users);
+        //console.log(users);
         return users;
     } catch (error) {
         console.error("Error", error);
@@ -27,7 +27,7 @@ export async function getUser(uid) {
         if (results.exists()) {
             const user = results.data();
             user.id = uid
-            console.log(user);
+            //console.log(user);
             return user;
         } else {
             return false
@@ -47,7 +47,7 @@ export async function changeUserInfo(uid, name, bio, interests, email) {
             interests: interests,
             //createdEvents: arrayUnion(1111)
         }, { merge: true });
-        console.log("User Added with ID:", uid);
+        //console.log("User Added with ID:", uid);
     } catch (error) {
         console.error("Error", error);
     }
