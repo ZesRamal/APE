@@ -19,8 +19,7 @@ const EventBox = ({
     id,
     date,
     direction,
-    photo,
-}) => {
+    photo, }) => {
     return (
         <div>
             <StyleContainer data-gslide="1">

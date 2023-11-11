@@ -96,12 +96,12 @@ const createEvents = () => {
         if (!user && !loading) {
             router.push("/")
         }
-        if (user) {
+        if (user && (eventData.organizer != "")) {
             if (user.uid != eventData.organizer) {
                 router.push("/eventos/info/" + eid)
             }
         }
-    }, [loading, user]);
+    }, [loading, user, eventData]);
 
     return (
         <div>
