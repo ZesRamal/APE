@@ -81,6 +81,11 @@ const infoEvents = () => {
                 <SectionTitles>
                     {eventName}
                 </SectionTitles>
+
+                <SectionTitles>
+                    {details}
+                </SectionTitles>
+
             </MainSection>
         </div>
     )
