@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head';
 
 
-const NavBar = () => {
+const NavBar = ({children}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
   const [user, setUser] = useState(null);
@@ -44,7 +44,7 @@ const NavBar = () => {
             <div className='toogle-button' onClick={toggleNavbar}>
               <i className='fas fa-bars'></i>
             </div>
-            <a href='/'>Inicio</a>
+            <a href='/'>{children}</a>
             {/* <img src='../images/logo-ensenada.png' alt='logo' className='logo'></img> */}
           </div>
           <div className='right-section'>
