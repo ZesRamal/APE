@@ -83,7 +83,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1e40af;
+  background-color: #1d3a69;
   color: white;
   padding: 10px 20px;
 }
@@ -180,6 +180,63 @@ a {
   font-family: 'times new roman', Courier, monospace;
   font-size: 50px;
  }
+
+.searchTitleSection{
+  text-align: center;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.blackBar{
+  height: 1px;
+  width: 100%;
+  background-color: black;
+}
+
+.searchBarContainer{
+  display: flex;
+  width: auto;
+  height: 180px;
+  justify-content: center;
+  align-items: center;
+  background: -webkit-linear-gradient(top, #1d3a69, #ffffff);
+}
+
+.imageSearchSection{
+  position: absolute; 
+  inset: 0px; 
+  box-sizing: border-box; 
+  padding: 0px; 
+  border: none; 
+  margin: auto; 
+  display: block; 
+  width: 0px; 
+  height: 0px; 
+  min-width: 100%; 
+  max-width: 100%; 
+  min-height: 100%; 
+  max-height: 100%;
+}
+
+.imageSearchSectionSpan{
+  box-sizing: border-box; 
+  display: inline-block; 
+  overflow: hidden; 
+  width: initial; 
+  height: initial; 
+  background: none; 
+  opacity: 1; 
+  border: 0px; 
+  margin: 0px; 
+  padding: 0px; 
+  max-width: 100%;
+}
+
+.tournamentScrollerSearch{
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 10px;
+}
 
 
 body {
