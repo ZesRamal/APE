@@ -264,7 +264,9 @@ body {
     "input-field-8 input-field-8"
     "button-1 button-2";
 }
-
+.contenedor > div{
+border-radius: 10px;
+}
 
 .contenedor .header {
 	background:#1e40af;
