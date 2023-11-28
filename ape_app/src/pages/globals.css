@@ -21,19 +21,17 @@
 body {
   font-family: 'Montserrat';
   font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
+  font-weight: 200;
   font-size: 1.4rem;
   line-height: 1.42;
   letter-spacing: 0.0107em;
 }
 
 .button-blue {
-  display: inline-flex;
   color: white;
   font-size: 1.6rem;
   justify-content: center;
   align-items: middle;
-  position: relative;
   box-sizing: border-box;
   outline: 0;
   border-spacing: 0;
@@ -53,17 +51,13 @@ body {
   box-shadow: 0 4px 6px -1px rgba(31,41,55,0.1), 0 2px 4px -1px rgba(31,41,55,0.06);
   border: #1e40af;
 }
-.button-blue:hover {
-  background-color: rgb(19, 8, 112);
-  border: 5px solid black;
- }
+
 .button-red {
-  display: inline-flex;
+
   color: white;
   font-size: 1.6rem;
   justify-content: center;
   align-items: middle;
-  position: relative;
   box-sizing: border-box;
   outline: 0;
   border-spacing: 0;
@@ -83,10 +77,7 @@ body {
   box-shadow: 0 4px 6px -1px rgba(73, 36, 36, 0.1), 0 2px 4px -1px rgba(55, 31, 31, 0.06);
   border: red;
 }
-.button-red:hover {
-  background-color: rgb(207, 9, 9);
-  border: 5px solid black;
- }
+
 
 .navbar {
   display: flex;
@@ -133,50 +124,32 @@ a {
   height: auto;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  width: 50%;
-  margin: 0 auto;
- }
- .container {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  gap: .1em;
- }
+
+
+  .input-field {
+    background-color: #ecf0f1;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    border: 2px solid black;
+    padding: 10px 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea los elementos a la izquierda */
+    width: 80%; /* Ajusta el ancho según tus necesidades */
+    margin: 0 auto;
+  }
 
 
 
- .input-field {
-  background-color: #ecf0f1;
-  margin-bottom: 5px;
-  margin-top: 10px;
-  border: 2px solid black;
-  padding: 1em;
-
- }
- .input-field:hover{
-  border: 5px solid black;
- }
- .input-field-blue {
-  background-color: rgb(93, 93, 237);
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: 2px solid black;
-  padding: 1em;
-  font-size: 1em;
-  
-
- }
- .input-field-blue:hover{
-  border: 5px solid black;
- }
- 
  label {
   display: block;
   margin-bottom: 5px;
+  
  }
+
  
  input,
  textarea,
@@ -207,3 +180,160 @@ form {
   font-family: 'times new roman', Courier, monospace;
   font-size: 50px;
  }
+
+
+body {
+	background: #E9ECF4;
+	color: #000;
+	font-family: 'Roboto', sans-serif;
+}
+
+.contenedor {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(9,auto);
+  grid-template-areas:
+    "header header"
+    "input-field-1 input-field-1"
+    "input-field-2 input-field-2"
+    "input-field-3 input-field-3"
+    "input-field-4 input-field-5"
+    "input-field-6 input-field-6"
+    "input-field-7 input-field-7"
+    "input-field-8 input-field-8"
+    "button-1 button-2";
+}
+
+
+.contenedor .header {
+	background:#1e40af;
+	color: #fff;
+	grid-area: header;
+}
+
+.input-field-1 {
+  background:#4663bf;
+  margin-top: 10px;
+  border: 2px solid black;
+  padding: 10px 20px;
+	grid-area: input-field-1;
+}
+#event-cover-image {
+  display: none; /* Ocultar el input real */
+  background: #000d82;
+  }
+.contenedor .input-field-2 {
+  background-color: #ecf0f1;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  border: 2px solid black;
+  padding: 10px 20px;
+	grid-area: input-field-2;
+}
+.contenedor .input-field-3 {
+  background-color: #ecf0f1;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  border: 2px solid black;
+  padding: 10px 20px;
+	grid-area: input-field-3;
+}
+.contenedor .input-field-4 {
+  background-color: #ecf0f1;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  border: 2px solid black;
+  padding: 10px 20px;
+	grid-area: input-field-4;
+}
+.contenedor .input-field-5 {
+  background-color: #ecf0f1;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  border: 2px solid black;
+  padding: 10px 20px;
+	grid-area: input-field-5;
+}
+.contenedor .input-field-6 {
+  background-color: #ecf0f1;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  border: 2px solid black;
+  padding: 10px 20px;
+	grid-area: input-field-6;
+}
+.contenedor .input-field-7 {
+  background-color: #ecf0f1;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  border: 2px solid black;
+  padding: 10px 20px;
+	grid-area: input-field-7;
+}
+.contenedor .input-field-8 {
+  background-color: #ecf0f1;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  border: 2px solid black;
+  padding: 10px 20px;
+	grid-area: input-field-8;
+}
+
+.contenedor .button-1,
+.contenedor .button-2{
+  background: #E9ECF4;
+  
+}
+
+
+@media screen and (max-width: 2000px){
+  .input-field-3 select option {
+    
+    font-size: 50%; /* Puedes ajustar el tamaño según tus preferencias */
+    text-align: auto;
+    
+    
+  }
+}
+
+@media screen and (max-width: 550px){
+  .contenedor {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(11, auto); /* Ajusta el número de filas */
+    grid-template-areas:
+      "header header"
+      "input-field-1 input-field-1"
+      "input-field-2 input-field-2"
+      "input-field-3 input-field-3"
+      "input-field-4 input-field-4"
+      "input-field-5 input-field-5"
+      "input-field-6 input-field-6"
+      "input-field-7 input-field-7"
+      "input-field-8 input-field-8"
+      "button-blue button-blue"  
+      "button-red button-red"; 
+  }
+  .input-field-3 select option {
+    
+    font-size: 30%; /* Puedes ajustar el tamaño según tus preferencias */
+    text-align: auto;
+    
+    
+  }
+  
+  /* Estilo adicional para el elemento select si es necesario */
+  .input-field-3 select {
+    /* Puedes agregar estilos adicionales según tus preferencias */
+    width: 120px; /* Por ejemplo, puedes establecer un ancho fijo para el select */
+    font-size: 22.4px;
+    margin: 0 auto; /* Centrar horizontalmente usando margen automático */
+  }
+
+ 
+
+}
+

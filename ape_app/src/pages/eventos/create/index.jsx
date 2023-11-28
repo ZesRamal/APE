@@ -55,14 +55,17 @@ const createEvents = () => {
 
 
     return (
-        <div >
+        <div className='contenedor'>
+          <div className='header'>
           <NavBar >Nuevo evento</NavBar>
+          </div>
+          
         
-          <form onSubmit={handleSubmit}>
+         
         
-            <div className="input-field-blue">
-              <label htmlFor="event-cover-image">Agregar foto de portada</label>
-              <input
+          <div className="input-field-1">
+            <label htmlFor="event-cover-image" >click aqui--</label>
+            <input
                 type="file"
                 id="event-cover-image"
                 name="eventCoverImage"
@@ -70,11 +73,12 @@ const createEvents = () => {
                 onChange={handleChange}
                 required
               />
-            </div>
-            <div className='input-field'>
-              <label htmlFor="event-name">Nombre del evento</label>
-                <input
-                placeholder='nombre del evento'
+                <p>agregar foto de portada</p>
+          </div>
+          <div className='input-field-2'>
+            <label htmlFor="event-name">Nombre del evento</label>
+              <input
+                placeholder='Nombre del evento'
                 type="text"
                 id="event-name"
                 name="eventName"
@@ -82,9 +86,8 @@ const createEvents = () => {
                 onChange={handleChange}
                 required
              />
-
-            </div>
-            <div className="input-field">
+          </div>
+          <div className="input-field-3">
             <label >
               Categoria:
                   <select name='input-field'  type="string" id="event-category" onChange={handleChange} required>
@@ -95,78 +98,74 @@ const createEvents = () => {
                       <option value="otros">Otros</option>
                   </select>
             </label>
-            </div>
-            <div className='container'>
-              <div className="input-field">
-              <label htmlFor="event-date">Fecha de inicio</label>
-              <input
+          </div>
+          
+         <div className="input-field-4">
+          <label htmlFor="event-date">Fecha de inicio</label>
+          <input
                 type="date"
                 id="event-date"
                 name="eventDate"
                 value={formData.eventDate}
                 onChange={handleChange}
                 required
-              />
-              </div>
-              <div className="input-field">
-              <label htmlFor="event-start-time">Hora de inicio</label>
-              <input
-                type="time"
-                id="event-start-time"
-                name="eventStartTime"
-                value={formData.eventStartTime}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-            
-            <div className="input-field">
-                <label htmlFor="event-location">Agregar ubicación</label>
-                <input
-                placeholder='Ubicación'
-                type="text"
-                id="event-location"
-                name="eventLocation"
-                value={formData.eventLocation}
-                onChange={handleChange}
-                required
-             />
-            </div>
-            <div className="input-field">
-              <label htmlFor="event-organizers">Agregar organizadores</label>
-              <input
-                placeholder='Ej. Victor Rosa, Amalia Mendez'
-                type="text"
-                id="event-organizers"
-                name="eventOrganizers"
-                value={formData.eventOrganizers}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-field">
-              <label htmlFor="event-details">Detalles del evento</label>
-              <textarea
-                placeholder='Descripcion detallada del evento'
-                id="event-details"
-                name="eventDetails"
-                rows="4"
-                cols="50"
-                value={formData.eventDetails}
-                onChange={handleChange}
-                required
-              ></textarea>
-            </div>
-
-            <div className='container'>
-              <button type='submit' className='button-blue'> Crear Evento </button>
-              <button  type='button' onClick={handleCancel}className='button-red' c>Regresar</button>
-            </div>
-                    
-          
-          </form>
+          />
         </div>
+        <div className="input-field-5">
+          <label htmlFor="event-start-time">Hora de inicio</label>
+          <input
+            type="time"
+            id="event-start-time"
+            name="eventStartTime"
+            value={formData.eventStartTime}
+            onChange={handleChange}
+            required
+          />
+        </div>  
+        <div className="input-field-6">
+          <label htmlFor="event-location">Agregar ubicación</label>
+          <input
+            placeholder='Ubicación'
+            type="text"
+            id="event-location"
+            name="eventLocation"
+            value={formData.eventLocation}
+            onChange={handleChange}
+            required
+            />
+        </div>
+        <div className="input-field-7">
+          <label htmlFor="event-organizers">Agregar organizadores</label>
+          <input
+            placeholder='Ej. Victor Rosa, Amalia Mendez'
+            type="text"
+            id="event-organizers"
+            name="eventOrganizers"
+            value={formData.eventOrganizers}
+            onChange={handleChange}
+            required
+           />
+        </div>
+        <div className="input-field-8">
+          <label htmlFor="event-details">Detalles del evento</label>
+           <textarea
+            placeholder='Descripcion detallada del evento'
+            id="event-details"
+            name="eventDetails"
+            rows="4"
+            cols="50"
+            value={formData.eventDetails}
+            onChange={handleChange}
+            required
+            ></textarea>
+        </div>
+
+       
+       <button type='submit' className='button-blue'> Crear Evento </button>
+       <button  type='button' onClick={handleCancel}className='button-red'>Regresar</button>
+       
+    
+    </div>
      );
     };
 
