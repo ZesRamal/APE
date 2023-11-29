@@ -264,3 +264,8 @@ form {
   margin-right: auto;
   padding-bottom: 10px;
 }
+
+.image-grid{
+  @apply grid gap-4;
+  grid-template-columns: repeat(auto-fill);
+}
