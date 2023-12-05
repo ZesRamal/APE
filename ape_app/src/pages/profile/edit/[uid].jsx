@@ -56,7 +56,7 @@ const editProfile = () => {
         }
         if (user) {
             if (user.uid != uid) {
-                router.push("/profile")
+                router.push("/profile/${}")
             }
         }
     }, [loading, user]);
