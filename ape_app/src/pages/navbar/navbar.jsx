@@ -1,83 +1,64 @@
-'use client'
-import React, { useEffect, useState, useRef } from 'react'
-import { initFirebase } from '@/firebase/firebaseApp'
-import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useRouter } from 'next/router';
-import { changeUserInfo } from '../profile/edit/[uid]';
-import { getEvents } from '../api/events';
+import React, { useEffect, useState } from 'react'
+import Head from 'next/head';
 
-initFirebase()
-const events = await getEvents();
 
-const NavBar = () => {
-  const auth = getAuth();
-  const provider = new GoogleAuthProvider();
-  const [user, loading, error] = useAuthState(auth);
+const NavBar = ({children}) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const router = useRouter();
+  
+  const [user, setUser] = useState(null);
 
-  const signIn = async () => {
-    // Inicia sesión con Google
-    const signed = await signInWithPopup(auth, provider);
-    // Verifica que el dominio del correo electrónico sea "@ite.edu.mx"
-    // if (!/@ite.edu.mx\s*$/.test(signed.user.email)) {
-    //   // Elimina al usuario
-    //   signed.user.delete();
-    // }
-    if (signed.user.metadata.creationTime == signed.user.metadata.lastSignInTime) {
-      changeUserInfo(signed.user.uid, signed.user.displayName, null, null, signed.user.email);
-    }
-    // Devuelve el usuario
-    return user;
-  };
+  // useEffect(()=> {
+  //   // verificacion del estado de autentificacion del usuario
+  //   firebase.auth().onAuthStateChanged((authUser) => {
+  //     if (authUser) {
+  //       setUser(authUser);
+  //     } else {
+  //       setUser(null)
+  //     }
+  //   })
+  // },[])
 
-
-  if (loading) {
-    return <div>Loading...</div>
-  }
-
-
-  if (typeof window === "undefined") return null;
-
-
-  function goToProfile() {
-    router.push("/profile/" + user.uid);
-  }
 
   const toggleNavbar = () => {
     setIsExpanded(!isExpanded)
   }
 
+  const handleLoginWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+      // el usuario inico sesion
+      const user = result.user;
+      setUser(user);
+    })
+    .catch((error) => {
+      // Manejo de errores de inicio de sesion
+      console.error(error)
+    });
+  };
 
-
-  return (
+  return(
     <div className='box-border'>
-      <div className={`navbar ${isExpanded ? 'expanded' : ''}`}>
-        <div className='left-section'>
-          <div className='toogle-button' onClick={toggleNavbar}>
-            <i className='fas fa-bars'></i>
-          </div>
-          <a href='/'>Inicio</a>
-          {/* <img src='../images/logo-ensenada.png' alt='logo' className='logo'></img> */}
-        </div>
-        <div className='right-section'>
-          {!user && (
-            <div className='profile-avatar' onClick={signIn} title='SignIn'>
-              <i className='fas fa-user'></i>
-            </div>)}
-          {user && (
-            <div className='profile-avatar'>
-              <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="profile" width={60} onClick={goToProfile} />
-              <div>
-                {user.displayName}
-              </div>
-              <button className=' bg-red-600 rounded-lg' onClick={() => { auth.signOut(); router.push("/") }}>LogOut</button>
+        <div className={`navbar ${isExpanded ? 'expanded' : ''}`}>
+          <div className='left-section'>
+            <div className='toogle-button' onClick={toggleNavbar}>
+              <i className='fas fa-bars'></i>
             </div>
-          )}
+            <a href='/'>{children}</a>
+            {/* <img src='../images/logo-ensenada.png' alt='logo' className='logo'></img> */}
+          </div>
+          <div className='right-section'>
+            <div className='profile-avatar' onClick={handleLoginWithGoogle}>
+              <i className='fas fa-user'></i>
+            </div>
+            {user && (
+              <div className='profile-avatar'>
+                <img src="{user.photoURL}" alt="profile" />
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
   )
 }
 
