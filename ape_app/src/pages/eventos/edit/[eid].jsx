@@ -69,7 +69,23 @@ const createEvents = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await changeEventInfo(eid, eventData.name, eventData.category, eventData.startDate, eventData.startTime, eventData.endDate, eventData.location, eventData.details);
+        let url = ""
+        switch (eventData.category) {
+            case "esports":
+                url = "https://www.iebschool.com/blog/wp-content/uploads/2020/09/invertir-en-eSports.jpg"
+                break;
+            case "sports":
+                url = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Sport_balls.svg/1200px-Sport_balls.svg.png"
+                break;
+            case "academics":
+                url = "https://www.ensenada.tecnm.mx/wp-content/gallery/tendencia-valle-2023/P1340350.jpg"
+                break;
+
+            default:
+                url = "https://www.ensenada.tecnm.mx/wp-content/themes/tecnm/images/logo-ensenada.png"
+                break;
+        }
+        await changeEventInfo(eid, eventData.name, eventData.category, eventData.startDate, eventData.startTime, eventData.endDate, eventData.location, eventData.details, url);
         setEventData({
             name: '',
             category: 'Esports',

@@ -18,7 +18,7 @@ const EventBox = ({
     name,
     id,
     date,
-    direction,
+    time,
     photo, }) => {
     return (
         <div>
@@ -29,7 +29,7 @@ const EventBox = ({
                             <MuiBox>
                                 <PictureSpan>
                                     <img alt="name"
-                                        className='absolute inset-0 box-border p-0 border border-medium m-auto block w-0 h-0 min-w-full max-w-full min-h-full max-h-full object-cover' sizes='100vw'
+                                        className='absolute inset-0 box-border p-0 border border-medium m-auto block w-0 h-0 min-w-full max-w-full min-h-full max-h-full object-cover'
                                         src={photo}
                                         decoding="async" data-nimg="fill">
                                     </img>
@@ -45,7 +45,7 @@ const EventBox = ({
                                 {name}
                             </TournamentTitle>
                             <DateEvents>
-                                {date}
+                                Horario: {date} {time}
                             </DateEvents>
                         </ContentRegion>
                     </StyleLink>

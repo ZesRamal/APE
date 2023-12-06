@@ -25,6 +25,7 @@ const createEvents = () => {
         location: '',
         organizer: '',
         details: '',
+        image: '',
     })
 
 
@@ -46,143 +47,130 @@ const createEvents = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newEvent = await createEvent(eventData.name, eventData.category, eventData.startDate, eventData.startTime, eventData.endDate, eventData.location, user.uid, eventData.details);
+        let url = ""
+        switch (eventData.category) {
+            case "esports":
+                url = "https://www.iebschool.com/blog/wp-content/uploads/2020/09/invertir-en-eSports.jpg"
+                break;
+            case "sports":
+                url = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Sport_balls.svg/1200px-Sport_balls.svg.png"
+                break;
+            case "academics":
+                url = "https://www.ensenada.tecnm.mx/wp-content/gallery/tendencia-valle-2023/P1340350.jpg"
+                break;
+
+            default:
+                url = "https://www.ensenada.tecnm.mx/wp-content/themes/tecnm/images/logo-ensenada.png"
+                break;
+        }
+        const newEvent = await createEvent(eventData.name, eventData.category, eventData.startDate, eventData.startTime, eventData.location, user.uid, eventData.details, url);
         setEventData({
             name: '',
             category: 'Esports',
             startDate: '',
-            endDate: '',
             startTime: '',
             location: '',
             details: '',
             organizer: '',
+            image: '',
         })
         router.push('../eventos/info/' + newEvent.id)
     }
 
-
-    const getCategoryImage = (category) => {
-        const categoryImages = {
-            esports: 'esports.png',
-            sports: 'sports.jpg',
-            academics: 'academics.jpg',
-        }
-        return `../../images/${categoryImages[category]}`
-    }
-
-    useEffect(() => {
-        if (!user && !loading) {
-            router.push("/")
-        }
-    }, []);
-
-
     return (
         <div>
-            <NavBar >Nuevo evento</NavBar>
-            <div className='mx-2'>
-                <div className="text-[36px] sm:text-[24px] leading-5 text-black font-bold text-center my-10">
-                    Crear Evento
-                </div>
-                <div className='mb-5'>
-                    <label htmlFor="event-name">Nombre del evento</label>
-                    <input
-                        placeholder='Nombre del evento'
-                        type="text"
-                        name="eventName"
-                        value={eventData.name}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="mb-5">
-                    <label >
-                        Categoria:
-                        <select name='input-field' value={eventData.category} onChange={handleChange} required>
-                            <option value="">--Seleccione una opcion--</option>
-                            <option value="esports">Esports</option>
-                            <option value="sports">Deportes</option>
-                            <option value="academics">Asuntos Academicos</option>
-                            <option value="otros">Otros</option>
-                        </select>
-                    </label>
-                </div>
+            <NavBar />
+            {user && (
+                <div className='mx-2'>
+                    <div className="text-[36px] sm:text-[24px] leading-5 text-black font-bold text-center my-10">
+                        Crear Evento
+                    </div>
+                    <div className='mb-5'>
+                        <label>Nombre del evento:</label>
+                        <input
+                            placeholder='Nombre del evento'
+                            type="text"
+                            id="name"
+                            value={eventData.name}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label >
+                            Categoria:
+                            <select id='category' value={eventData.category} onChange={handleChange}>
+                                <option value="">--Seleccione una opcion--</option>
+                                <option value="esports">Esports</option>
+                                <option value="sports">Deportes</option>
+                                <option value="academics">Asuntos Academicos</option>
+                                <option value="otros">Otros</option>
+                            </select>
+                        </label>
+                    </div>
 
-                <div className="mb-5">
-                    <label htmlFor="event-date">Fecha de inicio</label>
-                    <input
-                        type="date"
-                        id="event-date"
-                        name="eventDate"
-                        value={eventData.startDate}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="event-start-time">Hora de inicio</label>
-                    <input
-                        type="time"
-                        id="event-start-time"
-                        name="eventStartTime"
-                        value={eventData.startTime}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="event-location">Agregar ubicación</label>
-                    <input
-                        placeholder='Ubicación'
-                        type="text"
-                        id="event-location"
-                        name="eventLocation"
-                        value={eventData.location}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="event-organizers">Agregar organizadores</label>
-                    <input
-                        placeholder='Ej. Victor Rosa, Amalia Mendez'
-                        type="text"
-                        id="event-organizers"
-                        name="eventOrganizers"
-                        value={eventData.organizer}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="event-details">Detalles del evento</label>
-                    <textarea
-                        placeholder='Descripcion detallada del evento'
-                        id="event-details"
-                        name="eventDetails"
-                        rows="4"
-                        cols="50"
-                        value={eventData.details}
-                        onChange={handleChange}
-                        required
-                    ></textarea>
-                </div>
-                <div className="mb-5">
-                    <p>Foto de Portada:</p>
-                    <input
-                        type="file"
-                        id="event-cover-image"
-                        name="eventCoverImage"
-                        value={eventData.eventCoverImage}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+                    <div className="mb-5">
+                        <label htmlFor="event-date">Fecha de inicio</label>
+                        <input
+                            type="date"
+                            id="startDate"
+                            value={eventData.startDate}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label htmlFor="event-start-time">Hora de inicio</label>
+                        <input
+                            type="time"
+                            id="startTime"
+                            value={eventData.startTime}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label htmlFor="event-location">Agregar ubicación</label>
+                        <input
+                            placeholder='Ubicación'
+                            type="text"
+                            id="location"
+                            value={eventData.location}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label>Agregar organizadores</label>
+                        <input
+                            placeholder='Ej. Victor Rosa, Amalia Mendez'
+                            type='text'
+                            id='organizer'
+                            value={eventData.organizer}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label>Detalles del evento</label>
+                        <textarea
+                            placeholder='Descripcion detallada del evento'
+                            id="details"
+                            value={eventData.details}
+                            onChange={handleChange}
+                        ></textarea>
+                    </div>
+                    {/* <div className="mb-5">
+                        <p>Foto de Portada:</p>
+                        <input
+                            type="file"
+                            id="image"
+                            value={eventData.image}
+                            onChange={handleChange}
+                        />
+                    </div> */}
 
-                <div className=' text-center'>
-                    <button type='submit' className='button-blue w-48 mx-[25%]' onClick={handleSubmit}> Crear Evento </button>
-                    <button type='button' onClick={handleCancel} className='button-red w-48 mx-[25%]'>Regresar</button>
+                    <div className=' text-center'>
+                        <button type='submit' className='button-blue w-48 mx-[25%]' onClick={handleSubmit}> Crear Evento </button>
+                        <button type='button' onClick={handleCancel} className='button-red w-48 mx-[25%]'>Regresar</button>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

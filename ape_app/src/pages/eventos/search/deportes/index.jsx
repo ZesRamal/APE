@@ -3,6 +3,7 @@ import SearchBar from '../../../components/searchBar';
 import TournamentListing from '../../../components/tournamentListing';
 import GliderControls from '../../../components/gliderControls';
 import GliderContain from '../../../components/gliderContain';
+import GliderDragable from '../../../components/gliderDragable';
 import GliderTrack from '../../../components/gliderTrack';
 import React from 'react'
 import Link from 'next/link'
@@ -11,7 +12,7 @@ import { getEvents, searchEventsWithCategory } from "@/src/pages/api/events"
 import { initFirebase } from "@/firebase/firebaseApp";
 
 initFirebase();
-const platicas = await searchEventsWithCategory("academics")
+const deportes = await searchEventsWithCategory("sports")
 
 const searchEvents = () => {
 
@@ -25,7 +26,7 @@ const searchEvents = () => {
                 <div className='flex flex-row justify-center px-0'>
                     <Link href="/eventos/search" className='ml-0'>
                         <div className='searchTitleSection'>
-                            <span className=''>Todo</span>
+                            <span className='text-black'>Todo</span>
                         </div>
                     </Link>
                     <Link href='/eventos/search/today'>
@@ -36,7 +37,7 @@ const searchEvents = () => {
                     </Link>
                     <Link href='/eventos/search/deportes'>
                         <div className='searchTitleSection'>
-                            <span className='text-black'>Deportes</span>
+                            <span className='text-blue-500'>Deportes</span>
                         </div>
                     </Link>
                     <Link href='/eventos/search/esports'>
@@ -46,10 +47,10 @@ const searchEvents = () => {
                     </Link>
                     <Link href='/eventos/search/platicas'>
                         <div className='searchTitleSection'>
-                            <span className='text-blue-500'>Pláticas</span>
+                            <span className='text-black'>Pláticas</span>
                         </div>
                     </Link>
-                    <Link href='/eventos/search/otros'>
+                    <Link href='/eventos/search/platicas'>
                         <div className='searchTitleSection'>
                             <span className='text-black'>Otros</span>
                         </div>
@@ -63,14 +64,14 @@ const searchEvents = () => {
                             <div className='tournamentScrollerSearch'>
                                 <div role='group' aria-labelledby='18'>
                                     <div className='flex justify-between items-center flex-wrap'>
-                                        <h2 className='pl-2 my-4 text-base sm:text-[24px] leading-5 text-black font-bold '>Platicas</h2>
+                                        <h2 className='pl-2 my-4 text-base sm:text-[24px] leading-5 text-black font-bold '>Torneos</h2>
                                     </div>
                                     <GliderControls>
                                         <GliderContain>
                                             <div className='image-grid'>
                                                 <GliderTrack>
                                                     {/* Boxes de eventos */}
-                                                    {platicas?.map((event) => (
+                                                    {deportes?.map((event) => (
                                                         <SearchImages
                                                             id={event.id}
                                                             photo={event.image}>

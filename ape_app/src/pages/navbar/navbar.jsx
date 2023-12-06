@@ -67,12 +67,11 @@ const NavBar = () => {
               <i className='fas fa-user'></i>
             </div>)}
           {user && (
-            <div className='profile-avatar'>
-              <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="profile" width={60} onClick={goToProfile} />
-              <div>
+            <div>
+              <div className=' text-xs float-right text-right'>
                 {user.displayName}
               </div>
-              <button className=' bg-red-600 rounded-lg' onClick={() => { auth.signOut(); router.push("/") }}>LogOut</button>
+              <button className=' bg-red-600 rounded-lg text-sm w-auto py-1 float-right clear-right' onClick={() => { auth.signOut(); router.push("/") }}>LogOut</button>
             </div>
           )}
         </div>

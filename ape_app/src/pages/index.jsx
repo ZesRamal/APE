@@ -27,31 +27,22 @@ import NavBar from './navbar/navbar'
 import SearchEventButton from './components/searchEventButton'
 import CreateEventButton from './components/createEventButton'
 import EventBox from './components/eventBox'
-import { getEvents, searchEventsWithCategory } from './api/events'
+import { getEvents, getEventsOrderedByCreation, searchEventsWithCategory } from './api/events'
 import { initFirebase } from "@/firebase/firebaseApp";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 
-const inter = Inter({ subsets: ['latin'] })
-const events = await getEvents();
+initFirebase();
+const events = await getEventsOrderedByCreation()
 const platicas = await searchEventsWithCategory("academics")
 const deportes = await searchEventsWithCategory("sports")
-const eSports = await searchEventsWithCategory("Esports")
-initFirebase();
+const eSports = await searchEventsWithCategory("esports")
 
 export default function Home() {
-  // useEffect para cargar todos los eventos
-  // useEffect(() => {
-  //   ; (async () => {
-  //     const colRef = collection(db, 'eventos')
-  //     const snapshots = await getDocs(colRef)
-  //     const docs = snapshots.docs.map(doc => {
-  //       const data = doc.data()
-  //       data.id = doc.id
-  //       return data
-  //     })
-  //   })()
-  // }, [])
-
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+  const [user, loading, error] = useAuthState(auth);
 
   return (
     <div className="box-border *:before:*:after">
@@ -63,9 +54,11 @@ export default function Home() {
           </div>
           {/* Grupo de Botones*/}
           <ButtonGroup>
-            <CreateEventButton>
-              <span>Crear Eventos</span>
-            </CreateEventButton>
+            {user && (
+              <CreateEventButton>
+                <span>Crear Eventos</span>
+              </CreateEventButton>
+            )}
             <SearchEventButton>
               <span>Buscar Eventos</span>
             </SearchEventButton>
@@ -89,8 +82,9 @@ export default function Home() {
                                 key={event.id}
                                 id={event.id}
                                 name={event.name}
-                                date={event.id}
-                                photo={"https://www.bing.com/th?pid=Sgg&qlt=100&u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&w=340&r=0"}
+                                date={event.startDate}
+                                time={event.startTime}
+                                photo={event.image}
                               />
                             ))}
                           </GliderTrack>
@@ -114,8 +108,9 @@ export default function Home() {
                                 key={event.id}
                                 id={event.id}
                                 name={event.name}
-                                date={event.id}
-                                photo={"https://www.bing.com/th?pid=Sgg&qlt=100&u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&w=340&r=0"}
+                                date={event.startDate}
+                                time={event.startTime}
+                                photo={event.image}
                               />
                             ))}
                           </GliderTrack>
@@ -139,8 +134,9 @@ export default function Home() {
                                 key={event.id}
                                 id={event.id}
                                 name={event.name}
-                                date={event.id}
-                                photo={"https://www.bing.com/th?pid=Sgg&qlt=100&u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&w=340&r=0"}
+                                date={event.startDate}
+                                time={event.startTime}
+                                photo={event.image}
                               />
                             ))}
                           </GliderTrack>
@@ -164,8 +160,9 @@ export default function Home() {
                                 key={event.id}
                                 id={event.id}
                                 name={event.name}
-                                date={event.id}
-                                photo={"https://www.bing.com/th?pid=Sgg&qlt=100&u=https%3A%2F%2Fimages.start.gg%2Fimages%2Ftournament%2F574662%2Fimage-7b6101306d23a14cad31cccb6afe6728-optimized.png&ehk=HRu0%2BHEaWIxE3ldMfYQTHh5PgZMZhBFVHcRiPpdAvc8%3D&w=340&r=0"}
+                                date={event.startDate}
+                                time={event.startTime}
+                                photo={event.image}
                               />
                             ))}
                           </GliderTrack>

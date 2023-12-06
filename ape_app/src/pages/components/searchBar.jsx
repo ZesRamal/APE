@@ -7,18 +7,18 @@ const SearchBar = () => {
     const [query, setQuery] = useState('')
 
     const handleKeyPress = (e) => {
-        if (e.key === 'Enter'){
-            router.push(`/search?q=${encodeURIComponent(query)}`)
+        if (e.key === 'Enter') {
+            router.push(`/eventos/search/${encodeURIComponent(query)}`)
         }
     }
 
-    return(
+    return (
         <input
             className="m-3"
             type="text"
-            placeholder="Buscar eventos"
+            placeholder="Buscar eventos por nombre"
             value={query}
-            onChange={(e)=> setQuery(e.target.value)}
+            onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyPress}
         />
     )

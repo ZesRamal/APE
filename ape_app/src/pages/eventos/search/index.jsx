@@ -9,6 +9,16 @@ import GliderTrack from '../../components/gliderTrack';
 import React from 'react'
 import Link from 'next/link'
 import SearchImages from '../../components/searchImages';
+import { getEvents, searchEventsThatHappensToday, searchEventsWithCategory, searchEventsWithDate } from "@/src/pages/api/events"
+import { initFirebase } from "@/firebase/firebaseApp";
+
+
+initFirebase();
+const hoy = await searchEventsThatHappensToday()
+const platicas = await searchEventsWithCategory("academics")
+const deportes = await searchEventsWithCategory("sports")
+const eSports = await searchEventsWithCategory("esports")
+const otros = await searchEventsWithCategory("otros")
 
 const searchEvents = () => {
 
@@ -31,14 +41,24 @@ const searchEvents = () => {
                             <span className='text-black'>Eventos de hoy</span>
                         </div>
                     </Link>
-                    <Link href='/eventos/search/torneos'>
+                    <Link href='/eventos/search/deportes'>
                         <div className='searchTitleSection'>
-                            <span className='text-black'>Torneos</span>
+                            <span className='text-black'>Deportes</span>
+                        </div>
+                    </Link>
+                    <Link href='/eventos/search/esports'>
+                        <div className='searchTitleSection'>
+                            <span className='text-black'>ESports</span>
                         </div>
                     </Link>
                     <Link href='/eventos/search/platicas'>
                         <div className='searchTitleSection'>
-                            <span className='text-black'>Platicas</span>
+                            <span className='text-black'>Pláticas</span>
+                        </div>
+                    </Link>
+                    <Link href='/eventos/search/platicas'>
+                        <div className='searchTitleSection'>
+                            <span className='text-black'>Otros</span>
                         </div>
                     </Link>
                 </div>
@@ -56,19 +76,14 @@ const searchEvents = () => {
                                             <GliderDragable>
                                                 <GliderTrack>
                                                     {/* Boxes de eventos */}
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-
+                                                    {hoy?.map((event) => (
+                                                        <SearchImages
+                                                            id={event.id}
+                                                            key={event.id}
+                                                            name={event.name}
+                                                            photo={event.image}>
+                                                        </SearchImages>
+                                                    ))}
                                                 </GliderTrack>
                                             </GliderDragable>
                                         </GliderContain>
@@ -78,33 +93,56 @@ const searchEvents = () => {
                             <div className='tournamentScrollerSearch'>
                                 <div role='group' aria-labelledby='18'>
                                     <div className='flex justify-between items-center flex-wrap'>
-                                        <h2 className='pl-2 my-4 text-base sm:text-[24px] leading-5 text-black font-bold '>Torneos</h2>
+                                        <h2 className='pl-2 my-4 text-base sm:text-[24px] leading-5 text-black font-bold '>Torneos Deportivos</h2>
                                     </div>
                                     <GliderControls>
                                         <GliderContain>
                                             <GliderDragable>
                                                 <GliderTrack>
                                                     {/* Boxes de eventos */}
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-
+                                                    {deportes?.map((event) => (
+                                                        <SearchImages
+                                                            id={event.id}
+                                                            key={event.id}
+                                                            name={event.name}
+                                                            photo={event.image}>
+                                                        </SearchImages>
+                                                    ))}
+                                                    {!deportes && (
+                                                        <div>
+                                                            No hay eventos
+                                                        </div>
+                                                    )}
                                                 </GliderTrack>
                                             </GliderDragable>
                                         </GliderContain>
                                     </GliderControls>
                                 </div>
                             </div>
-
+                            <div className='tournamentScrollerSearch'>
+                                <div role='group' aria-labelledby='18'>
+                                    <div className='flex justify-between items-center flex-wrap'>
+                                        <h2 className='pl-2 my-4 text-base sm:text-[24px] leading-5 text-black font-bold '>Torneos ESports</h2>
+                                    </div>
+                                    <GliderControls>
+                                        <GliderContain>
+                                            <GliderDragable>
+                                                <GliderTrack>
+                                                    {/* Boxes de eventos */}
+                                                    {eSports?.map((event) => (
+                                                        <SearchImages
+                                                            id={event.id}
+                                                            key={event.id}
+                                                            name={event.name}
+                                                            photo={event.image}>
+                                                        </SearchImages>
+                                                    ))}
+                                                </GliderTrack>
+                                            </GliderDragable>
+                                        </GliderContain>
+                                    </GliderControls>
+                                </div>
+                            </div>
                             <div className='tournamentScrollerSearch'>
                                 <div role='group' aria-labelledby='18'>
                                     <div className='flex justify-between items-center flex-wrap'>
@@ -115,19 +153,38 @@ const searchEvents = () => {
                                             <GliderDragable>
                                                 <GliderTrack>
                                                     {/* Boxes de eventos */}
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-                                                    <SearchImages>
-                                                        <img alt="Super Smash Bros. Ultimate" profiletype="videogame" srcset="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 1x, https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0 2x" src="https://www.bing.com/th?pid=Sgg&amp;qlt=100&amp;u=https%3A%2F%2Fimages.start.gg%2Fimages%2Fvideogame%2F1386%2Fimage-d24f740623a31f9e1eec2aabc30f4ba2-optimized.jpg&amp;ehk=Cv4voljXe9IIL1YmYNqg162zjL1hDYQvuyujRyflMX4%3D&amp;w=140&amp;r=0" decoding="async" data-nimg="intrinsic" className='imageSearchSection'></img>
-                                                    </SearchImages>
-
+                                                    {platicas?.map((event) => (
+                                                        <SearchImages
+                                                            id={event.id}
+                                                            key={event.id}
+                                                            name={event.name}
+                                                            photo={event.image}>
+                                                        </SearchImages>
+                                                    ))}
+                                                </GliderTrack>
+                                            </GliderDragable>
+                                        </GliderContain>
+                                    </GliderControls>
+                                </div>
+                            </div>
+                            <div className='tournamentScrollerSearch'>
+                                <div role='group' aria-labelledby='18'>
+                                    <div className='flex justify-between items-center flex-wrap'>
+                                        <h2 className='pl-2 my-4 text-base sm:text-[24px] leading-5 text-black font-bold '>Otros</h2>
+                                    </div>
+                                    <GliderControls>
+                                        <GliderContain>
+                                            <GliderDragable>
+                                                <GliderTrack>
+                                                    {/* Boxes de eventos */}
+                                                    {otros?.map((event) => (
+                                                        <SearchImages
+                                                            id={event.id}
+                                                            key={event.id}
+                                                            name={event.name}
+                                                            photo={event.image}>
+                                                        </SearchImages>
+                                                    ))}
                                                 </GliderTrack>
                                             </GliderDragable>
                                         </GliderContain>
