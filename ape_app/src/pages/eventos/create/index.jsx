@@ -8,6 +8,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { setDoc, collection, doc, Firestore, arrayUnion, addDoc, where, getDocs, query } from "firebase/firestore";
 import { db, initFirebase } from "@/firebase/firebaseApp";
 import { getEvents, createEvent, searchEventsWithUID } from '../../api/events';
+import SectionTitles from '../../components/sectionTitles';
 
 const createEvents = () => {
     const auth = getAuth();
@@ -59,6 +60,7 @@ const createEvents = () => {
         router.push('../eventos/info/' + newEvent.id)
     }
 
+
     const getCategoryImage = (category) => {
         const categoryImages = {
             esports: 'esports.png',
@@ -72,98 +74,117 @@ const createEvents = () => {
         if (!user && !loading) {
             router.push("/")
         }
-    }, [loading]);
+    }, []);
+
 
     return (
         <div>
-            <NavBar />
-            {user && (
-                <div className='flex flex-row'>
-                    <form onSubmit={handleSubmit} >
-                        <img src={getCategoryImage(eventData.category)}
-                            alt='Category Image'
-                            className='category-image
-                    '/>
-                        <label>
-                            Nombre del Evento:
-                            <input
-                                type='text'
-                                id='name'
-                                value={eventData.name}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            Categoria:
-                            <select id='category' value={eventData.category} onChange={handleChange}>
-                                <option value="esports">Esports</option>
-                                <option value="sports">Deportes</option>
-                                <option value="academics">Asuntos Academicos</option>
-                            </select>
-                        </label>
-                        <label>
-                            Fecha de Inicio:
-                            <input
-                                type='date'
-                                id='startDate'
-                                value={eventData.startDate}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            Fecha de termino:
-                            <input
-                                type='date'
-                                id='endDate'
-                                value={eventData.endDate}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            <input
-                                type='time'
-                                id='startTime'
-                                value={eventData.startTime}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            Ubicacion:
-                            <input
-                                type='text'
-                                id='location'
-                                value={eventData.location}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            Organizadores:
-                            <input
-                                type='text'
-                                id='organizer'
-                                value={eventData.organizer}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            Detalles:
-                            <textarea
-                                id='details'
-                                value={eventData.details}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <ButtonGroup>
-                            <button type='submit' onClick={handleSubmit}> Create Event </button>
-                            <button type='button' onClick={handleCancel}>Cancel</button>
-                            <button type='button' onClick={testConsultaEventos}>Eventos</button>
-                        </ButtonGroup>
-
-                    </form>
+            <NavBar >Nuevo evento</NavBar>
+            <div className='mx-2'>
+                <div className="text-[36px] sm:text-[24px] leading-5 text-black font-bold text-center my-10">
+                    Crear Evento
                 </div>
-            )}
+                <div className='mb-5'>
+                    <label htmlFor="event-name">Nombre del evento</label>
+                    <input
+                        placeholder='Nombre del evento'
+                        type="text"
+                        name="eventName"
+                        value={eventData.name}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="mb-5">
+                    <label >
+                        Categoria:
+                        <select name='input-field' value={eventData.category} onChange={handleChange} required>
+                            <option value="">--Seleccione una opcion--</option>
+                            <option value="esports">Esports</option>
+                            <option value="sports">Deportes</option>
+                            <option value="academics">Asuntos Academicos</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div className="mb-5">
+                    <label htmlFor="event-date">Fecha de inicio</label>
+                    <input
+                        type="date"
+                        id="event-date"
+                        name="eventDate"
+                        value={eventData.startDate}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="event-start-time">Hora de inicio</label>
+                    <input
+                        type="time"
+                        id="event-start-time"
+                        name="eventStartTime"
+                        value={eventData.startTime}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="event-location">Agregar ubicación</label>
+                    <input
+                        placeholder='Ubicación'
+                        type="text"
+                        id="event-location"
+                        name="eventLocation"
+                        value={eventData.location}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="event-organizers">Agregar organizadores</label>
+                    <input
+                        placeholder='Ej. Victor Rosa, Amalia Mendez'
+                        type="text"
+                        id="event-organizers"
+                        name="eventOrganizers"
+                        value={eventData.organizer}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="event-details">Detalles del evento</label>
+                    <textarea
+                        placeholder='Descripcion detallada del evento'
+                        id="event-details"
+                        name="eventDetails"
+                        rows="4"
+                        cols="50"
+                        value={eventData.details}
+                        onChange={handleChange}
+                        required
+                    ></textarea>
+                </div>
+                <div className="mb-5">
+                    <p>Foto de Portada:</p>
+                    <input
+                        type="file"
+                        id="event-cover-image"
+                        name="eventCoverImage"
+                        value={eventData.eventCoverImage}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className=' text-center'>
+                    <button type='submit' className='button-blue w-48 mx-[25%]' onClick={handleSubmit}> Crear Evento </button>
+                    <button type='button' onClick={handleCancel} className='button-red w-48 mx-[25%]'>Regresar</button>
+                </div>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default createEvents;
