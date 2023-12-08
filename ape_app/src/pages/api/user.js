@@ -37,6 +37,36 @@ export async function getUser(uid) {
     }
 }
 
+export async function getUserMailByID(uid) {
+    try {
+        const docRef = doc(db, "usuarios/" + uid);
+        const results = await getDoc(docRef);
+        if (results.exists()) {
+            const user = results.data();
+            return user.email;
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.error("Error", error);
+    }
+}
+
+export async function getUserNameByID(uid) {
+    try {
+        const docRef = doc(db, "usuarios/" + uid);
+        const results = await getDoc(docRef);
+        if (results.exists()) {
+            const user = results.data();
+            return user.name;
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.error("Error", error);
+    }
+}
+
 export async function changeUserInfo(uid, name, bio, interests, email) {
     try {
         const docRef = doc(db, 'usuarios', uid)

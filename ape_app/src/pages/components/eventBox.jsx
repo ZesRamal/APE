@@ -13,6 +13,7 @@ import TopRightContainer from "./topRightContainer";
 import ContentRegion from "./contentRegion";
 import TournamentTitle from "./tournamentTitle";
 import DateEvents from "./dateEvents";
+import { split } from "postcss/lib/list";
 
 const EventBox = ({
     name,
@@ -20,6 +21,7 @@ const EventBox = ({
     date,
     time,
     photo, }) => {
+    const [year, month, day] = date.split('-');
     return (
         <div>
             <StyleContainer data-gslide="1">
@@ -45,7 +47,7 @@ const EventBox = ({
                                 {name}
                             </TournamentTitle>
                             <DateEvents>
-                                Horario: {date} {time}
+                                Horario: {day}-{month}-{year} {time}
                             </DateEvents>
                         </ContentRegion>
                     </StyleLink>

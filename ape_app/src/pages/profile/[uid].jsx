@@ -53,11 +53,6 @@ const viewProfile = () => {
     return (
         <div className="box-border">
             <NavBar />
-            {user && user.uid == uid && (
-                <div>
-                    <div onClick={goToEdit}>Edit</div>
-                </div>
-            )}
             <div className="flex flex-col mx-4 my-4">
                 <div>
                     <h1 className="text-[24px] sm:text-[28px] leading-5 font-semibold my-4"> Ver Perfil </h1>

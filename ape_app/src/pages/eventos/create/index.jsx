@@ -137,16 +137,6 @@ const createEvents = () => {
                         />
                     </div>
                     <div className="mb-5">
-                        <label>Agregar organizadores</label>
-                        <input
-                            placeholder='Ej. Victor Rosa, Amalia Mendez'
-                            type='text'
-                            id='organizer'
-                            value={eventData.organizer}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="mb-5">
                         <label>Detalles del evento</label>
                         <textarea
                             placeholder='Descripcion detallada del evento'

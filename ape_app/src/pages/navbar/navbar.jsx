@@ -68,7 +68,7 @@ const NavBar = () => {
             </div>)}
           {user && (
             <div>
-              <div className=' text-xs float-right text-right'>
+              <div className=' text-xs float-right text-right' onClick={goToProfile}>
                 {user.displayName}
               </div>
               <button className=' bg-red-600 rounded-lg text-sm w-auto py-1 float-right clear-right' onClick={() => { auth.signOut(); router.push("/") }}>LogOut</button>

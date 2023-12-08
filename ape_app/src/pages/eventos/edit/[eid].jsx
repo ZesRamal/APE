@@ -85,27 +85,17 @@ const createEvents = () => {
                 url = "https://www.ensenada.tecnm.mx/wp-content/themes/tecnm/images/logo-ensenada.png"
                 break;
         }
-        await changeEventInfo(eid, eventData.name, eventData.category, eventData.startDate, eventData.startTime, eventData.endDate, eventData.location, eventData.details, url);
+        await changeEventInfo(eid, eventData.name, eventData.category, eventData.startDate, eventData.startTime, eventData.location, eventData.details, url);
         setEventData({
             name: '',
             category: 'Esports',
             startDate: '',
-            endDate: '',
             startTime: '',
             location: '',
             details: '',
             organizer: '',
         })
         router.push('../info/' + eid)
-    }
-
-    const getCategoryImage = (category) => {
-        const categoryImages = {
-            esports: 'esports.png',
-            sports: 'sports.jpg',
-            academics: 'academics.jpg',
-        }
-        return `../../images/${categoryImages[category]}`
     }
 
     useEffect(() => {
@@ -123,88 +113,76 @@ const createEvents = () => {
         <div>
             <NavBar />
             {user && (
-                <div className='flex flex-row'>
-                    <form onSubmit={handleSubmit} >
-                        <img src={getCategoryImage(eventData.category)}
-                            alt='Category Image'
-                            className='category-image
-                    '/>
-                        <label>
-                            Nombre del Evento:
-                            <input
-                                type='text'
-                                id='name'
-                                value={eventData.name}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
+                <div className='mx-2'>
+                    <div className="text-[36px] sm:text-[24px] leading-5 text-black font-bold text-center my-10">
+                        Modificar Evento
+                    </div>
+                    <div className='mb-5'>
+                        <label>Nombre del evento:</label>
+                        <input
+                            placeholder='Nombre del evento'
+                            type="text"
+                            id="name"
+                            value={eventData.name}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label >
                             Categoria:
                             <select id='category' value={eventData.category} onChange={handleChange}>
+                                <option value="">--Seleccione una opcion--</option>
                                 <option value="esports">Esports</option>
                                 <option value="sports">Deportes</option>
                                 <option value="academics">Asuntos Academicos</option>
+                                <option value="otros">Otros</option>
                             </select>
                         </label>
-                        <label>
-                            Fecha de Inicio:
-                            <input
-                                type='date'
-                                id='startDate'
-                                value={eventData.startDate}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            Fecha de termino:
-                            <input
-                                type='date'
-                                id='endDate'
-                                value={eventData.endDate}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            <input
-                                type='time'
-                                id='startTime'
-                                value={eventData.startTime}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            Ubicacion:
-                            <input
-                                type='text'
-                                id='location'
-                                value={eventData.location}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            Organizadores:
-                            <input
-                                type='text'
-                                id='organizer'
-                                value={eventData.organizer}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <label>
-                            Detalles:
-                            <textarea
-                                id='details'
-                                value={eventData.details}
-                                onChange={handleChange}
-                            />
-                        </label>
-                        <ButtonGroup>
-                            <button type='submit' onClick={handleSubmit}> Guardar Cambios </button>
-                            <button type='button' onClick={handleCancel}>Cancelar</button>
-                            <button type='button' onClick={handleBorrar}>Borrar Evento</button>
-                        </ButtonGroup>
+                    </div>
 
-                    </form>
+                    <div className="mb-5">
+                        <label htmlFor="event-date">Fecha de inicio</label>
+                        <input
+                            type="date"
+                            id="startDate"
+                            value={eventData.startDate}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label htmlFor="event-start-time">Hora de inicio</label>
+                        <input
+                            type="time"
+                            id="startTime"
+                            value={eventData.startTime}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label htmlFor="event-location">Agregar ubicación</label>
+                        <input
+                            placeholder='Ubicación'
+                            type="text"
+                            id="location"
+                            value={eventData.location}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="mb-5">
+                        <label>Detalles del evento</label>
+                        <textarea
+                            placeholder='Descripcion detallada del evento'
+                            id="details"
+                            value={eventData.details}
+                            onChange={handleChange}
+                        ></textarea>
+                    </div>
+
+                    <div className=' text-center'>
+                        <button type='submit' className='button-green w-48 mx-[25%] h-auto' onClick={handleSubmit}> Guardar </button>
+                        <button type='button' onClick={handleCancel} className='button-blue w-48 mx-[25%]'>Regresar</button>
+                        <button type='submit' className='button-red w-48 mx-[25%]' onClick={handleBorrar}> Borrar Evento </button>
+                    </div>
                 </div>
             )}
         </div>
