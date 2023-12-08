@@ -84,6 +84,10 @@ const searchEvents = () => {
                                                             photo={event.image}>
                                                         </SearchImages>
                                                     ))}
+                                                    {hoy == '' && (
+                                                        <div className='pl-5'>
+                                                            No hay eventos este día :c
+                                                        </div>)}
                                                 </GliderTrack>
                                             </GliderDragable>
                                         </GliderContain>

@@ -9,7 +9,7 @@ const SearchImages = ({ id, photo, name }) => {
                         <span className="imageSearchSectionSpan">
                             <div className="relative w-auto h-auto rounded overflow-hidden group">
                                 <img src={photo} decoding="async" data-nimg="intrinsic" className='w-full h-[240px] object-cover opacity-100 group-hover:opacity-50' />
-                                <div className="absolute top-[120px] left-0 right-0 bottom-0 text-center text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] opacity-0 group-hover:opacity-100">
+                                <div className="absolute top-[120px] left-0 right-0 bottom-0 text-center text-white drop-shadow-[0_2.2px_2.2px_rgba(0,0,0,0.8)] opacity-0 group-hover:opacity-100 sm:opacity-100">
                                     {name}
                                 </div>
                             </div>
